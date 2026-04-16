@@ -496,9 +496,143 @@
         overflow: auto;
       }
     }
+  
+
+    /* LOGIN */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(3,10,20,.96), rgba(4,12,24,.98));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      background: linear-gradient(180deg, #0f1c36 0%, #0a1529 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+
+    .login-card h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .login-card p {
+      margin: 0 0 18px;
+      font-size: 13px;
+      color: #96a9c7;
+    }
+
+    .login-card .field {
+      margin-bottom: 12px;
+    }
+
+    .login-card label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      color: #96a9c7;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: 700;
+    }
+
+    .login-card input {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #142445;
+      color: #fff;
+      padding: 11px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .login-card input:focus {
+      border-color: rgba(59,130,246,.55);
+      box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+    }
+
+    .login-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .login-btn {
+      flex: 1;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: linear-gradient(180deg,#2f6df5 0%,#2158cf 100%);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .login-msg {
+      margin-top: 10px;
+      min-height: 18px;
+      font-size: 12px;
+      color: #ffb4b4;
+    }
+
+    .user-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      font-size: 12px;
+      color: #cfe0ff;
+    }
+
+    .logout-btn {
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body>
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+      <h2>Acesso ao Menu</h2>
+      <p>Entre para acessar os módulos.</p>
+
+      <div class="field">
+        <label>Usuário</label>
+        <input id="loginUser" type="text" placeholder="Digite o usuário">
+      </div>
+
+      <div class="field">
+        <label>Senha</label>
+        <input id="loginPass" type="password" placeholder="Digite a senha">
+      </div>
+
+      <div class="login-actions">
+        <button class="login-btn" id="btnLogin" type="button">Entrar</button>
+      </div>
+
+      <div id="loginMsg" class="login-msg"></div>
+    </div>
+  </div>
 
   <aside class="sidebar">
     <div class="logo">
@@ -511,6 +645,12 @@
       <button onclick="abrirSistema('instrutivo')">📚 Instrutivo</button>
       <button onclick="abrirSistema('refaturamento')">🔁 Refaturamento</button>
       <button onclick="abrirSistema('faturamento')">💰 Faturamento</button>
+    </div>
+
+    <div class="user-box">
+      <div><strong>Usuário:</strong> <span id="usuarioLogado">-</span></div>
+      <div style="margin-top:4px;"><strong>Perfil:</strong> <span id="perfilLogado">-</span></div>
+      <button class="logout-btn" id="btnLogout" type="button">Sair</button>
     </div>
 
     <div class="sidebar-footer">
@@ -672,6 +812,93 @@
   </main>
 
   <script>
+
+    const MENU_USERS = [
+      { usuario: "admin", senha: "admin123", perfil: "admin", nome: "Administrador" },
+      { usuario: "operacional", senha: "op123", perfil: "operacional", nome: "Operacional" },
+      { usuario: "consulta", senha: "consulta123", perfil: "consulta", nome: "Consulta" }
+    ];
+
+    function getSessaoMenu() {
+      try {
+        return JSON.parse(localStorage.getItem("menu_login_session") || "null");
+      } catch {
+        return null;
+      }
+    }
+
+    function salvarSessaoMenu(sessao) {
+      localStorage.setItem("menu_login_session", JSON.stringify(sessao));
+      localStorage.setItem("perfil_menu", sessao.perfil);
+      localStorage.setItem("nome_menu", sessao.nome);
+    }
+
+    function limparSessaoMenu() {
+      localStorage.removeItem("menu_login_session");
+      localStorage.removeItem("perfil_menu");
+      localStorage.removeItem("nome_menu");
+      localStorage.removeItem("origem_menu_ok");
+    }
+
+    function atualizarUsuarioLogado() {
+      const sessao = getSessaoMenu();
+      const nomeEl = document.getElementById("usuarioLogado");
+      const perfilEl = document.getElementById("perfilLogado");
+
+      if (nomeEl) nomeEl.textContent = sessao?.nome || "-";
+      if (perfilEl) perfilEl.textContent = sessao?.perfil || "-";
+    }
+
+    function mostrarLogin() {
+      const overlay = document.getElementById("loginOverlay");
+      if (overlay) overlay.style.display = "flex";
+    }
+
+    function esconderLogin() {
+      const overlay = document.getElementById("loginOverlay");
+      if (overlay) overlay.style.display = "none";
+    }
+
+    function validarLoginMenu() {
+      const user = document.getElementById("loginUser").value.trim();
+      const pass = document.getElementById("loginPass").value.trim();
+      const msg = document.getElementById("loginMsg");
+
+      const encontrado = MENU_USERS.find(u => u.usuario === user && u.senha === pass);
+
+      if (!encontrado) {
+        if (msg) msg.textContent = "Usuário ou senha inválidos.";
+        return;
+      }
+
+      salvarSessaoMenu({
+        usuario: encontrado.usuario,
+        nome: encontrado.nome,
+        perfil: encontrado.perfil
+      });
+
+      if (msg) msg.textContent = "";
+      esconderLogin();
+      atualizarUsuarioLogado();
+    }
+
+    function validarSessaoInicialMenu() {
+      const sessao = getSessaoMenu();
+      if (!sessao || !sessao.perfil) {
+        mostrarLogin();
+        return;
+      }
+
+      esconderLogin();
+      atualizarUsuarioLogado();
+    }
+
+    function sairMenu() {
+      limparSessaoMenu();
+      mostrarLogin();
+      atualizarUsuarioLogado();
+    }
+
     const LINKS = {
       dados: "https://rateiofrete.vercel.app/",
       instrutivo: "https://instrutivo-21ko.vercel.app/",
@@ -680,13 +907,25 @@
     };
 
     function abrirSistema(nome) {
-      const url = LINKS[nome];
-      if (!url || url.includes("SEU-")) {
-        alert("Configure primeiro o link do módulo: " + nome);
-        return;
-      }
-      window.location.href = url;
-    }
+  const sessao = getSessaoMenu();
+
+  if (!sessao || !sessao.perfil) {
+    mostrarLogin();
+    return;
+  }
+
+  const url = LINKS[nome];
+  if (!url || url.includes("SEU-")) {
+    alert("Configure primeiro o link do módulo: " + nome);
+    return;
+  }
+
+  const destino = new URL(url);
+  destino.searchParams.set("perfil", sessao.perfil);
+  destino.searchParams.set("usuario", sessao.nome || sessao.usuario || "");
+
+  window.location.href = destino.toString();
+}
 
     function atalhoAbrir(event, nome) {
       if (event.key === "Enter" || event.key === " ") {
@@ -1108,6 +1347,16 @@
 
     document.getElementById("filtroMes").addEventListener("change", carregarTudo);
     document.getElementById("filtroAno").addEventListener("change", carregarTudo);
+
+
+    document.getElementById("btnLogin")?.addEventListener("click", validarLoginMenu);
+    document.getElementById("btnLogout")?.addEventListener("click", sairMenu);
+
+    document.getElementById("loginPass")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") validarLoginMenu();
+    });
+
+    validarSessaoInicialMenu();
 
     carregarTudo();
     ativarTempoReal();
