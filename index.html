@@ -321,6 +321,14 @@
       background: linear-gradient(90deg, #22c55e, #4ade80);
     }
 
+    .module-902::before {
+      background: linear-gradient(90deg, #06b6d4, #67e8f9);
+    }
+
+    .module-pdf::before {
+      background: linear-gradient(90deg, #a855f7, #c084fc);
+    }
+
     .module-card::after {
       content: "";
       position: absolute;
@@ -645,6 +653,8 @@
       <button onclick="abrirSistema('instrutivo')">📚 Instrutivo</button>
       <button onclick="abrirSistema('refaturamento')">🔁 Refaturamento</button>
       <button onclick="abrirSistema('faturamento')">💰 Faturamento</button>
+      <button onclick="abrirSistema('painel902')">🚚 Painel 902</button>
+      <button onclick="abrirSistema('agrupaPdf')">🧩 Agrupa/remove PDF</button>
     </div>
 
     <div class="user-box">
@@ -798,6 +808,45 @@
         </div>
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
+
+      <div class="module-card module-902" onclick="abrirSistema('painel902')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'painel902')">
+        <div class="module-header">
+          <div class="module-title">🚚 Painel 902</div>
+          <div class="module-badge">Operação</div>
+        </div>
+        <div class="module-desc">Painel de acompanhamento 902 com alertas e configurações.</div>
+        <div class="module-metrics">
+          <div class="metric-box">
+            <div class="metric-label">Acesso</div>
+            <div class="metric-value">Menu</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Controle</div>
+            <div class="metric-value">Protegido</div>
+          </div>
+        </div>
+        <div class="card-hint">Clique para abrir o módulo</div>
+      </div>
+
+      <div class="module-card module-pdf" onclick="abrirSistema('agrupaPdf')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'agrupaPdf')">
+        <div class="module-header">
+          <div class="module-title">🧩 Agrupa/remove PDF</div>
+          <div class="module-badge">Documentos</div>
+        </div>
+        <div class="module-desc">Agrupamento, separação e remoção de páginas de PDFs.</div>
+        <div class="module-metrics">
+          <div class="metric-box">
+            <div class="metric-label">Acesso</div>
+            <div class="metric-value">Menu</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Fluxo</div>
+            <div class="metric-value">Protegido</div>
+          </div>
+        </div>
+        <div class="card-hint">Clique para abrir o módulo</div>
+      </div>
+
     </section>
 
     <section class="status-row">
@@ -813,12 +862,11 @@
 
   <script>
 
-   const MENU_USERS = [
-  { usuario: "admin", senha: "admin2026", perfil: "admin", nome: "Administrador" },
-  { usuario: "auditoria", senha: "auditoria2026", perfil: "admin", nome: "Auditoria" },
-  { usuario: "comex", senha: "comex2026", perfil: "consulta", nome: "Comex" },
-  { usuario: "faturamento", senha: "faturamento2026", perfil: "consulta", nome: "Faturamento" }
-];
+    const MENU_USERS = [
+      { usuario: "admin", senha: "admin123", perfil: "admin", nome: "Administrador", usuarioRef: "" },
+      { usuario: "operacional", senha: "op123", perfil: "operacional", nome: "Operacional", usuarioRef: "" },
+      { usuario: "consulta", senha: "consulta123", perfil: "consulta", nome: "Consulta", usuarioRef: "" }
+    ];
 
     function getSessaoMenu() {
       try {
@@ -875,7 +923,8 @@
       salvarSessaoMenu({
         usuario: encontrado.usuario,
         nome: encontrado.nome,
-        perfil: encontrado.perfil
+        perfil: encontrado.perfil,
+        usuarioRef: encontrado.usuarioRef || ""
       });
 
       if (msg) msg.textContent = "";
@@ -904,29 +953,31 @@
       dados: "https://rateiofrete.vercel.app/",
       instrutivo: "https://instrutivo-21ko.vercel.app/",
       refaturamento: "https://refaturamento.vercel.app/",
-      faturamento: "https://faturamento-sigma.vercel.app/"
+      faturamento: "https://faturamento-sigma.vercel.app/",
+      painel902: "https://faturamento-pendente.vercel.app/",
+      agrupaPdf: "https://junta-cte-e-nf.vercel.app/"
     };
 
     function abrirSistema(nome) {
-  const sessao = getSessaoMenu();
+      const sessao = getSessaoMenu();
 
-  if (!sessao || !sessao.perfil) {
-    mostrarLogin();
-    return;
-  }
+      if (!sessao || !sessao.perfil) {
+        mostrarLogin();
+        return;
+      }
 
-  const url = LINKS[nome];
-  if (!url || url.includes("SEU-")) {
-    alert("Configure primeiro o link do módulo: " + nome);
-    return;
-  }
+      const url = LINKS[nome];
+      if (!url || url.includes("SEU-")) {
+        alert("Configure primeiro o link do módulo: " + nome);
+        return;
+      }
 
-  const destino = new URL(url);
-  destino.searchParams.set("perfil", sessao.perfil);
-  destino.searchParams.set("usuario", sessao.nome || sessao.usuario || "");
-
-  window.location.href = destino.toString();
-}
+      const destino = new URL(url);
+      destino.searchParams.set("perfil", sessao.perfil);
+      destino.searchParams.set("usuario", sessao.nome || sessao.usuario || "");
+      if (sessao.usuarioRef) destino.searchParams.set("usuarioRef", sessao.usuarioRef);
+      window.location.href = destino.toString();
+    }
 
     function atalhoAbrir(event, nome) {
       if (event.key === "Enter" || event.key === " ") {
