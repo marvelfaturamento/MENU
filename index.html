@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Geral Integrado v4.2</title>
+  <title>Menu Pai Integrado Final</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -327,6 +327,10 @@
 
     .module-pdf::before {
       background: linear-gradient(90deg, #a855f7, #c084fc);
+    }
+
+    .module-leitor::before {
+      background: linear-gradient(90deg, #ef4444, #f97316);
     }
 
     .module-card::after {
@@ -655,6 +659,7 @@
       <button onclick="abrirSistema('faturamento')">💰 Faturamento</button>
       <button onclick="abrirSistema('painel902')">🚚 Painel 902</button>
       <button onclick="abrirSistema('agrupaPdf')">🧩 Agrupa/remove PDF</button>
+      <button onclick="abrirSistema('leitor')">🔎 Leitor Scanner</button>
     </div>
 
     <div class="user-box">
@@ -847,6 +852,25 @@
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
+      <div class="module-card module-leitor" onclick="abrirSistema('leitor')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'leitor')">
+        <div class="module-header">
+          <div class="module-title">🔎 Leitor Scanner</div>
+          <div class="module-badge">Leitura</div>
+        </div>
+        <div class="module-desc">Leitor de documentos e conferência por scanner.</div>
+        <div class="module-metrics">
+          <div class="metric-box">
+            <div class="metric-label">Acesso</div>
+            <div class="metric-value">Menu</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Fluxo</div>
+            <div class="metric-value">Protegido</div>
+          </div>
+        </div>
+        <div class="card-hint">Clique para abrir o módulo</div>
+      </div>
+
     </section>
 
     <section class="status-row">
@@ -863,30 +887,49 @@
   <script>
 
     const MENU_USERS = [
-      { usuario: "admin", senha: "admin123", perfil: "admin", nome: "Administrador", usuarioRef: "" },
-      { usuario: "operacional", senha: "op123", perfil: "operacional", nome: "Operacional", usuarioRef: "" },
-      { usuario: "consulta", senha: "consulta123", perfil: "consulta", nome: "Consulta", usuarioRef: "" }
+      // Admin: acesso total
+      { usuario: "mateus", senha: "mateus2026", perfil: "admin", nome: "Mateus", usuarioRef: "matheus.devise" },
+      { usuario: "tiago", senha: "tiago2026", perfil: "admin", nome: "Tiago", usuarioRef: "tiago.carniel" },
+
+      // Operacional: antigo intermediário
+      { usuario: "adenilson", senha: "adenilson2026", perfil: "operacional", nome: "Adenilson", usuarioRef: "adenilson.filho" },
+      { usuario: "carolina", senha: "carolina2026", perfil: "operacional", nome: "Carolina", usuarioRef: "carolina.pasquali" },
+
+      // Consulta: todos os demais usuários individuais
+      { usuario: "ademir", senha: "ademir2026", perfil: "consulta", nome: "Ademir", usuarioRef: "ademir.fernandes" },
+      { usuario: "angelita", senha: "angelita2026", perfil: "consulta", nome: "Angelita", usuarioRef: "angelita.santos" },
+      { usuario: "elisangela", senha: "elisangela2026", perfil: "consulta", nome: "Elisangela", usuarioRef: "elisangela.vieira" },
+      { usuario: "geovana", senha: "geovana2026", perfil: "consulta", nome: "Geovana", usuarioRef: "geovana.silva" },
+      { usuario: "jhonatan", senha: "jhonatan2026", perfil: "consulta", nome: "Jhonatan", usuarioRef: "jhonatan.ghizzi" },
+      { usuario: "jonathan", senha: "jonathan2026", perfil: "consulta", nome: "Jonathan", usuarioRef: "jonathan.balestrin" },
+      { usuario: "josete", senha: "josete2026", perfil: "consulta", nome: "Josete", usuarioRef: "josete.gabriel" },
+      { usuario: "karllin", senha: "karllin2026", perfil: "consulta", nome: "Karllin", usuarioRef: "karllin" },
+      { usuario: "karoline", senha: "karoline2026", perfil: "consulta", nome: "Karoline", usuarioRef: "karoline.romanini" },
+      { usuario: "multisoft", senha: "multisoft2026", perfil: "consulta", nome: "Multisoft", usuarioRef: "multisoft.service" },
+      { usuario: "angelica", senha: "angelica2026", perfil: "consulta", nome: "Angelica", usuarioRef: "angelica.lucca" },
+      { usuario: "leia", senha: "leia2026", perfil: "consulta", nome: "Leia", usuarioRef: "leia.mattos" },
+      { usuario: "amanda", senha: "amanda2026", perfil: "consulta", nome: "Amanda", usuarioRef: "amanda.machado" },
+      { usuario: "tayner", senha: "tayner2026", perfil: "consulta", nome: "Tayner", usuarioRef: "tayner.percio" },
+
+      // Acessos setoriais sem filtro individual
+      { usuario: "comex", senha: "comex2026", perfil: "consulta", nome: "Comex", usuarioRef: "" },
+      { usuario: "faturamento", senha: "faturamento2026", perfil: "consulta", nome: "Faturamento", usuarioRef: "" }
     ];
 
     function getSessaoMenu() {
       try {
-        return JSON.parse(localStorage.getItem("menu_login_session") || "null");
+        return JSON.parse(sessionStorage.getItem("menu_login_session") || "null");
       } catch {
         return null;
       }
     }
 
     function salvarSessaoMenu(sessao) {
-      localStorage.setItem("menu_login_session", JSON.stringify(sessao));
-      localStorage.setItem("perfil_menu", sessao.perfil);
-      localStorage.setItem("nome_menu", sessao.nome);
+      sessionStorage.setItem("menu_login_session", JSON.stringify(sessao));
     }
 
     function limparSessaoMenu() {
-      localStorage.removeItem("menu_login_session");
-      localStorage.removeItem("perfil_menu");
-      localStorage.removeItem("nome_menu");
-      localStorage.removeItem("origem_menu_ok");
+      sessionStorage.removeItem("menu_login_session");
     }
 
     function atualizarUsuarioLogado() {
@@ -955,7 +998,8 @@
       refaturamento: "https://refaturamento.vercel.app/",
       faturamento: "https://faturamento-sigma.vercel.app/",
       painel902: "https://faturamento-pendente.vercel.app/",
-      agrupaPdf: "https://junta-cte-e-nf.vercel.app/"
+      agrupaPdf: "https://junta-cte-e-nf.vercel.app/",
+      leitor: "https://leitor-scaner.vercel.app/"
     };
 
     function abrirSistema(nome) {
@@ -975,7 +1019,7 @@
       const destino = new URL(url);
       destino.searchParams.set("perfil", sessao.perfil);
       destino.searchParams.set("usuario", sessao.nome || sessao.usuario || "");
-      if (sessao.usuarioRef) destino.searchParams.set("usuarioRef", sessao.usuarioRef);
+      destino.searchParams.set("usuarioRef", sessao.usuarioRef || "");
       window.location.href = destino.toString();
     }
 
