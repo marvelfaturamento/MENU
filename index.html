@@ -727,13 +727,13 @@
       <div class="kpi-card kpi-yellow">
         <div class="kpi-title">% Impacto Mensal</div>
         <div class="kpi-value" id="kpiImpactoMensal">0,00%</div>
-        <div class="kpi-sub">Refaturado sobre o bruto do mês</div>
+        <div class="kpi-sub">Refaturado + substituto sobre o bruto do mês</div>
       </div>
 
       <div class="kpi-card kpi-red">
         <div class="kpi-title">% Impacto Anual</div>
         <div class="kpi-value" id="kpiImpactoAnual">0,00%</div>
-        <div class="kpi-sub">Média dos impactos mensais do ano</div>
+        <div class="kpi-sub">Média mensal de refaturado + substituto no ano</div>
       </div>
     </section>
 
@@ -888,9 +888,8 @@
 
     const MENU_USERS = [
       // Admin: acesso total
-      { usuario: "mateus", senha: "mateusdevise2026", perfil: "admin", nome: "Mateus", usuarioRef: "matheus.devise" },
+      { usuario: "matheus", senha: "matheusdevise2026", perfil: "admin", nome: "Mateus", usuarioRef: "matheus.devise" },
       { usuario: "tiago", senha: "tiago1992", perfil: "admin", nome: "Tiago", usuarioRef: "tiago.carniel" },
-      { usuario: "vinicius", senha: "vinicius1858", perfil: "admin", nome: "Tiago", usuarioRef: "tiago.carniel" },
 
       // Operacional: antigo intermediário
       { usuario: "adenilson", senha: "adenilson2025", perfil: "operacional", nome: "Adenilson", usuarioRef: "adenilson.filho" },
@@ -903,7 +902,7 @@
       { usuario: "geovana", senha: "geo@2026", perfil: "consulta", nome: "Geovana", usuarioRef: "geovana.silva" },
       { usuario: "ghizzi", senha: "ghizzi@2026", perfil: "consulta", nome: "Jhonatan", usuarioRef: "jhonatan.ghizzi" },
       { usuario: "balestrin", senha: "bale@800", perfil: "consulta", nome: "Jonathan", usuarioRef: "jonathan.balestrin" },
-      { usuario: "josete", senha: "josete@2026*", perfil: "consulta", nome: "Josete", usuarioRef: "josete.gabriel" },
+      { usuario: "josete", senha: "josete@2026", perfil: "consulta", nome: "Josete", usuarioRef: "josete.gabriel" },
       { usuario: "karllin", senha: "karllin2026", perfil: "consulta", nome: "Karllin", usuarioRef: "karllin" },
       { usuario: "karoline", senha: "karol@165816", perfil: "consulta", nome: "Karoline", usuarioRef: "karoline.romanini" },
       { usuario: "multisoft", senha: "multisoft2026", perfil: "consulta", nome: "Multisoft", usuarioRef: "multisoft.service" },
@@ -913,8 +912,8 @@
       { usuario: "tayner", senha: "tayner2026", perfil: "consulta", nome: "Tayner", usuarioRef: "tayner.percio" },
 
       // Acessos setoriais sem filtro individual
-      { usuario: "comex", senha: "comexnull", perfil: "consulta", nome: "Comex", usuarioRef: "" },
-      { usuario: "faturamento", senha: "faturamentonull", perfil: "consulta", nome: "Faturamento", usuarioRef: "" }
+      { usuario: "comex", senha: "comex2026", perfil: "consulta", nome: "Comex", usuarioRef: "" },
+      { usuario: "faturamento", senha: "faturamento2026", perfil: "consulta", nome: "Faturamento", usuarioRef: "" }
     ];
 
     function getSessaoMenu() {
@@ -1337,6 +1336,7 @@
 
         const faturamentoPorMes = Array(12).fill(0);
         const refaturadoPorMes = Array(12).fill(0);
+        const substitutoPorMes = Array(12).fill(0);
 
         (fatResp.data || []).forEach(item => {
           const data = new Date(item[TABELAS.faturamento.campoData]);
@@ -1348,8 +1348,11 @@
         (refResp.data || []).forEach(item => {
           const tipo = String(item[TABELAS.refaturamento.campoTipo] || "").toLowerCase();
           const mesNum = Number(item[TABELAS.refaturamento.campoMes]);
-          if (tipo === TABELAS.refaturamento.tipoSetor && mesNum >= 1 && mesNum <= 12) {
-            refaturadoPorMes[mesNum - 1] += Number(item[TABELAS.refaturamento.campoValor] || 0);
+          if (mesNum >= 1 && mesNum <= 12) {
+            if (tipo === TABELAS.refaturamento.tipoSetor) {
+              refaturadoPorMes[mesNum - 1] += Number(item[TABELAS.refaturamento.campoValor] || 0);
+            }
+            substitutoPorMes[mesNum - 1] += Number(item[TABELAS.refaturamento.campoSubstituto] || 0);
           }
         });
 
@@ -1358,7 +1361,8 @@
 
         for (let i = 0; i < 12; i++) {
           if (faturamentoPorMes[i] > 0) {
-            somaImpactos += (refaturadoPorMes[i] / faturamentoPorMes[i]) * 100;
+            const impactoBaseMes = refaturadoPorMes[i] + substitutoPorMes[i];
+            somaImpactos += (impactoBaseMes / faturamentoPorMes[i]) * 100;
             mesesComBase++;
           }
         }
@@ -1387,8 +1391,10 @@
 
         const bruto = Number(fatMes.bruto || 0);
         const refaturado = Number(refMes.total || 0);
+        const substituto = Number(refMes.substituto || 0);
+        const impactoBase = refaturado + substituto;
         const liquido = bruto - refaturado;
-        const impactoMensal = bruto > 0 ? (refaturado / bruto) * 100 : 0;
+        const impactoMensal = bruto > 0 ? (impactoBase / bruto) * 100 : 0;
         const impactoAnual = Number(anual.impactoAnual || 0);
 
         setTexto("kpiBruto", moeda(bruto));
