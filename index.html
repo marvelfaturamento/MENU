@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- saved from url=(0034)https://menu-rho-olive.vercel.app/ -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu Pai Integrado Final</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -623,7 +623,7 @@
   </style>
 </head>
 <body>
-  <div id="loginOverlay" class="login-overlay">
+  <div id="loginOverlay" class="login-overlay" style="display: none;">
     <div class="login-card">
       <h2>Acesso ao Menu</h2>
       <p>Entre para acessar os módulos.</p>
@@ -653,18 +653,18 @@
     </div>
 
     <div class="menu">
-      <button class="active" onclick="abrirSistema('dados')">📊 Dados</button>
-      <button onclick="abrirSistema('instrutivo')">📚 Instrutivo</button>
-      <button onclick="abrirSistema('refaturamento')">🔁 Refaturamento</button>
-      <button onclick="abrirSistema('faturamento')">💰 Faturamento</button>
-      <button onclick="abrirSistema('painel902')">🚚 Painel 902</button>
-      <button onclick="abrirSistema('agrupaPdf')">🧩 Agrupa/remove PDF</button>
-      <button onclick="abrirSistema('leitor')">🔎 Leitor Scanner</button>
+      <button class="active" onclick="abrirSistema(&#39;dados&#39;)">📊 Dados</button>
+      <button onclick="abrirSistema(&#39;instrutivo&#39;)">📚 Instrutivo</button>
+      <button onclick="abrirSistema(&#39;refaturamento&#39;)">🔁 Refaturamento</button>
+      <button onclick="abrirSistema(&#39;faturamento&#39;)">💰 Faturamento</button>
+      <button onclick="abrirSistema(&#39;painel902&#39;)">🚚 Painel 902</button>
+      <button onclick="abrirSistema(&#39;agrupaPdf&#39;)">🧩 Agrupa/remove PDF</button>
+      <button onclick="abrirSistema(&#39;leitor&#39;)">🔎 Leitor Scanner</button>
     </div>
 
     <div class="user-box">
-      <div><strong>Usuário:</strong> <span id="usuarioLogado">-</span></div>
-      <div style="margin-top:4px;"><strong>Perfil:</strong> <span id="perfilLogado">-</span></div>
+      <div><strong>Usuário:</strong> <span id="usuarioLogado">Tiago</span></div>
+      <div style="margin-top:4px;"><strong>Perfil:</strong> <span id="perfilLogado">admin</span></div>
       <button class="logout-btn" id="btnLogout" type="button">Sair</button>
     </div>
 
@@ -701,44 +701,44 @@
 
       <div class="mini-filter">
         <label for="filtroAno">Ano</label>
-        <select id="filtroAno"></select>
+        <select id="filtroAno"><option value="2027">2027</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option></select>
       </div>
     </section>
 
     <section class="kpis">
       <div class="kpi-card kpi-blue">
         <div class="kpi-title">Faturamento Bruto</div>
-        <div class="kpi-value" id="kpiBruto">R$ 0,00</div>
-        <div class="kpi-sub">Valor bruto do mês selecionado</div>
+        <div class="kpi-value" id="kpiBruto">R$&nbsp;0,00</div>
+        <div class="kpi-sub">Valor bruto real do mês selecionado</div>
       </div>
 
       <div class="kpi-card kpi-orange">
         <div class="kpi-title">Refaturado</div>
-        <div class="kpi-value" id="kpiRefaturado">R$ 0,00</div>
+        <div class="kpi-value" id="kpiRefaturado">R$&nbsp;0,00</div>
         <div class="kpi-sub">Valor refaturado do mês selecionado</div>
       </div>
 
       <div class="kpi-card kpi-green">
         <div class="kpi-title">Faturamento Líquido</div>
-        <div class="kpi-value" id="kpiLiquido">R$ 0,00</div>
+        <div class="kpi-value" id="kpiLiquido">R$&nbsp;0,00</div>
         <div class="kpi-sub">Bruto menos refaturado</div>
       </div>
 
       <div class="kpi-card kpi-yellow">
         <div class="kpi-title">% Impacto Mensal</div>
-        <div class="kpi-value" id="kpiImpactoMensal">0,00%</div>
-        <div class="kpi-sub">Refaturado + substituto sobre o bruto do mês</div>
+        <div class="kpi-value positive" id="kpiImpactoMensal">0,00%</div>
+        <div class="kpi-sub">Refaturado + substituto sobre o bruto real do mês</div>
       </div>
 
       <div class="kpi-card kpi-red">
         <div class="kpi-title">% Impacto Anual</div>
-        <div class="kpi-value" id="kpiImpactoAnual">0,00%</div>
-        <div class="kpi-sub">Média mensal de refaturado + substituto no ano</div>
+        <div class="kpi-value positive" id="kpiImpactoAnual">1,67%</div>
+        <div class="kpi-sub">Refaturado + substituto sobre o bruto real anual</div>
       </div>
     </section>
 
     <section class="modules">
-      <div class="module-card module-dados" onclick="abrirSistema('dados')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'dados')">
+      <div class="module-card module-dados" onclick="abrirSistema(&#39;dados&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;dados&#39;)">
         <div class="module-header">
           <div class="module-title">📊 Dados</div>
           <div class="module-badge">Operacional</div>
@@ -747,17 +747,17 @@
         <div class="module-metrics">
           <div class="metric-box">
             <div class="metric-label">Status</div>
-            <div class="metric-value" id="dadosStatus">Aguardando</div>
+            <div class="metric-value" id="dadosStatus">Atalho</div>
           </div>
           <div class="metric-box">
             <div class="metric-label">Registros</div>
-            <div class="metric-value" id="dadosRegistros">0</div>
+            <div class="metric-value" id="dadosRegistros">—</div>
           </div>
         </div>
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
-      <div class="module-card module-instrutivo" onclick="abrirSistema('instrutivo')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'instrutivo')">
+      <div class="module-card module-instrutivo" onclick="abrirSistema(&#39;instrutivo&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;instrutivo&#39;)">
         <div class="module-header">
           <div class="module-title">📚 Instrutivo</div>
           <div class="module-badge">Treinamento</div>
@@ -766,7 +766,7 @@
         <div class="module-metrics">
           <div class="metric-box">
             <div class="metric-label">Clientes</div>
-            <div class="metric-value" id="instrutivoClientes">0</div>
+            <div class="metric-value" id="instrutivoClientes">328</div>
           </div>
           <div class="metric-box">
             <div class="metric-label">Passos</div>
@@ -776,7 +776,7 @@
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
-      <div class="module-card module-refaturamento" onclick="abrirSistema('refaturamento')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'refaturamento')">
+      <div class="module-card module-refaturamento" onclick="abrirSistema(&#39;refaturamento&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;refaturamento&#39;)">
         <div class="module-header">
           <div class="module-title">🔁 Refaturamento</div>
           <div class="module-badge">Controle</div>
@@ -785,36 +785,36 @@
         <div class="module-metrics">
           <div class="metric-box">
             <div class="metric-label">Valor do mês</div>
-            <div class="metric-value" id="refaturadoMesCard">R$ 0,00</div>
+            <div class="metric-value" id="refaturadoMesCard">R$&nbsp;0,00</div>
           </div>
           <div class="metric-box">
             <div class="metric-label">Ocorrências</div>
-            <div class="metric-value" id="refaturadoQtd">0</div>
+            <div class="metric-value" id="refaturadoQtd">7</div>
           </div>
         </div>
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
-      <div class="module-card module-faturamento" onclick="abrirSistema('faturamento')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'faturamento')">
+      <div class="module-card module-faturamento" onclick="abrirSistema(&#39;faturamento&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;faturamento&#39;)">
         <div class="module-header">
           <div class="module-title">💰 Faturamento</div>
           <div class="module-badge">Financeiro</div>
         </div>
-        <div class="module-desc">Bruto e líquido do mês selecionado.</div>
+        <div class="module-desc">Bruto real e líquido real do mês selecionado.</div>
         <div class="module-metrics">
           <div class="metric-box">
             <div class="metric-label">Bruto do mês</div>
-            <div class="metric-value" id="faturamentoBrutoCard">R$ 0,00</div>
+            <div class="metric-value" id="faturamentoBrutoCard">R$&nbsp;0,00</div>
           </div>
           <div class="metric-box">
             <div class="metric-label">Líquido do mês</div>
-            <div class="metric-value" id="faturamentoLiquidoCard">R$ 0,00</div>
+            <div class="metric-value" id="faturamentoLiquidoCard">R$&nbsp;0,00</div>
           </div>
         </div>
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
-      <div class="module-card module-902" onclick="abrirSistema('painel902')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'painel902')">
+      <div class="module-card module-902" onclick="abrirSistema(&#39;painel902&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;painel902&#39;)">
         <div class="module-header">
           <div class="module-title">🚚 Painel 902</div>
           <div class="module-badge">Operação</div>
@@ -833,7 +833,7 @@
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
-      <div class="module-card module-pdf" onclick="abrirSistema('agrupaPdf')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'agrupaPdf')">
+      <div class="module-card module-pdf" onclick="abrirSistema(&#39;agrupaPdf&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;agrupaPdf&#39;)">
         <div class="module-header">
           <div class="module-title">🧩 Agrupa/remove PDF</div>
           <div class="module-badge">Documentos</div>
@@ -852,7 +852,7 @@
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
-      <div class="module-card module-leitor" onclick="abrirSistema('leitor')" role="button" tabindex="0" onkeydown="atalhoAbrir(event, 'leitor')">
+      <div class="module-card module-leitor" onclick="abrirSistema(&#39;leitor&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;leitor&#39;)">
         <div class="module-header">
           <div class="module-title">🔎 Leitor Scanner</div>
           <div class="module-badge">Leitura</div>
@@ -878,7 +878,7 @@
         <span class="status-dot"></span>
         <div>
           <div style="font-size:9px;color:#94a3b8;">Status</div>
-          <div id="statusAtualizacao" style="font-size:11px;font-weight:800;">Carregando indicadores...</div>
+          <div id="statusAtualizacao" style="font-size:11px;font-weight:800;">Atualizado às 10:42:51</div>
         </div>
       </div>
     </section>
@@ -1084,7 +1084,12 @@
       faturamento: {
         tabela: "faturamento_bruto",
         campoValor: "total_bruto",
-        campoData: "data"
+        campoData: "data",
+        tabelaReal: "valores_reais_faturamento",
+        campoMesReal: "mes",
+        campoBrutoReal: "bruto_real",
+        campoLiquidoReal: "liquido_real",
+        campoAtualizadoReal: "updated_at"
       }
     };
 
@@ -1154,6 +1159,7 @@
     function popularAnos() {
       const selectAno = document.getElementById("filtroAno");
       const anoAtual = new Date().getFullYear();
+      if (selectAno) selectAno.innerHTML = "";
 
       for (let ano = anoAtual + 1; ano >= anoAtual - 5; ano--) {
         const option = document.createElement("option");
@@ -1303,23 +1309,118 @@
       }
     }
 
+
+    function indiceMesDeData(valor) {
+      const data = new Date(valor);
+      return isNaN(data.getTime()) ? -1 : data.getMonth();
+    }
+
+    function escolherRegistroRealMaisRecente(lista) {
+      if (!Array.isArray(lista) || !lista.length) return null;
+      return lista.slice().sort((a, b) => {
+        const da = new Date(a[TABELAS.faturamento.campoAtualizadoReal] || a.created_at || a[TABELAS.faturamento.campoMesReal] || 0).getTime();
+        const db = new Date(b[TABELAS.faturamento.campoAtualizadoReal] || b.created_at || b[TABELAS.faturamento.campoMesReal] || 0).getTime();
+        return db - da;
+      })[0];
+    }
+
+    async function carregarValorRealMes(mes, ano) {
+      if (!sbFaturamento) return { brutoReal: 0, liquidoReal: 0, existeReal: false };
+
+      try {
+        const range = getRangeMesAno(mes, ano);
+        const cfg = TABELAS.faturamento;
+        const { data, error } = await sbFaturamento
+          .from(cfg.tabelaReal)
+          .select(`${cfg.campoMesReal}, ${cfg.campoBrutoReal}, ${cfg.campoLiquidoReal}, ${cfg.campoAtualizadoReal}`)
+          .gte(cfg.campoMesReal, range.inicio)
+          .lt(cfg.campoMesReal, range.fim)
+          .order(cfg.campoAtualizadoReal, { ascending: false })
+          .limit(1);
+
+        if (error) throw error;
+
+        const real = escolherRegistroRealMaisRecente(data || []);
+        if (!real) return { brutoReal: 0, liquidoReal: 0, existeReal: false };
+
+        return {
+          brutoReal: Number(real[cfg.campoBrutoReal] || 0),
+          liquidoReal: Number(real[cfg.campoLiquidoReal] || 0),
+          existeReal: true
+        };
+      } catch (e) {
+        console.error("Erro valores reais mês:", e);
+        return { brutoReal: 0, liquidoReal: 0, existeReal: false };
+      }
+    }
+
+    async function carregarValoresReaisAno(ano) {
+      const brutoRealPorMes = Array(12).fill(0);
+      const liquidoRealPorMes = Array(12).fill(0);
+      const existeRealPorMes = Array(12).fill(false);
+
+      if (!sbFaturamento) return { brutoRealPorMes, liquidoRealPorMes, existeRealPorMes };
+
+      try {
+        const cfg = TABELAS.faturamento;
+        const rangeAno = getRangeAno(ano);
+        const { data, error } = await sbFaturamento
+          .from(cfg.tabelaReal)
+          .select(`${cfg.campoMesReal}, ${cfg.campoBrutoReal}, ${cfg.campoLiquidoReal}, ${cfg.campoAtualizadoReal}`)
+          .gte(cfg.campoMesReal, rangeAno.inicio)
+          .lt(cfg.campoMesReal, rangeAno.fim)
+          .order(cfg.campoAtualizadoReal, { ascending: false });
+
+        if (error) throw error;
+
+        const porMes = Array.from({ length: 12 }, () => []);
+        (data || []).forEach(item => {
+          const idx = indiceMesDeData(item[cfg.campoMesReal]);
+          if (idx >= 0 && idx < 12) porMes[idx].push(item);
+        });
+
+        for (let i = 0; i < 12; i++) {
+          const real = escolherRegistroRealMaisRecente(porMes[i]);
+          if (real) {
+            brutoRealPorMes[i] = Number(real[cfg.campoBrutoReal] || 0);
+            liquidoRealPorMes[i] = Number(real[cfg.campoLiquidoReal] || 0);
+            existeRealPorMes[i] = true;
+          }
+        }
+      } catch (e) {
+        console.error("Erro valores reais ano:", e);
+      }
+
+      return { brutoRealPorMes, liquidoRealPorMes, existeRealPorMes };
+    }
+
     async function carregarFaturamentoMes(mes, ano) {
       if (!sbFaturamento) {
         setTexto("faturamentoBrutoCard", moeda(0));
         setTexto("faturamentoLiquidoCard", moeda(0));
-        return { bruto: 0 };
+        return { brutoOperacional: 0, brutoReal: 0, liquidoReal: 0, existeReal: false };
       }
 
       try {
-        const resp = await queryMesComFallback(sbFaturamento, TABELAS.faturamento, mes, ano);
+        const [resp, real] = await Promise.all([
+          queryMesComFallback(sbFaturamento, TABELAS.faturamento, mes, ano),
+          carregarValorRealMes(mes, ano)
+        ]);
+
         const lista = resp.data || [];
-        const bruto = lista.reduce((acc, item) => acc + Number(item[TABELAS.faturamento.campoValor] || 0), 0);
-        return { bruto };
+        const brutoOperacional = lista.reduce((acc, item) => acc + Number(item[TABELAS.faturamento.campoValor] || 0), 0);
+
+        return {
+          brutoOperacional,
+          brutoReal: Number(real.brutoReal || 0),
+          liquidoReal: Number(real.liquidoReal || 0),
+          existeReal: !!real.existeReal
+        };
       } catch (e) {
         console.error("Erro faturamento mês:", e);
         setTexto("faturamentoBrutoCard", moeda(0));
         setTexto("faturamentoLiquidoCard", moeda(0));
-        return { bruto: 0 };
+        return { brutoOperacional: 0, brutoReal: 0, liquidoReal: 0, existeReal: false };
       }
     }
 
@@ -1329,19 +1430,20 @@
       }
 
       try {
-        const [fatResp, refResp] = await Promise.all([
+        const [fatResp, refResp, reaisAno] = await Promise.all([
           queryAnoComFallback(sbFaturamento, TABELAS.faturamento, ano),
-          queryAnoComFallback(sbRefaturamento, TABELAS.refaturamento, ano)
+          queryAnoComFallback(sbRefaturamento, TABELAS.refaturamento, ano),
+          carregarValoresReaisAno(ano)
         ]);
 
-        const faturamentoPorMes = Array(12).fill(0);
+        const faturamentoOperacionalPorMes = Array(12).fill(0);
         const refaturadoPorMes = Array(12).fill(0);
         const substitutoPorMes = Array(12).fill(0);
 
         (fatResp.data || []).forEach(item => {
           const data = new Date(item[TABELAS.faturamento.campoData]);
           if (!isNaN(data.getTime())) {
-            faturamentoPorMes[data.getMonth()] += Number(item[TABELAS.faturamento.campoValor] || 0);
+            faturamentoOperacionalPorMes[data.getMonth()] += Number(item[TABELAS.faturamento.campoValor] || 0);
           }
         });
 
@@ -1356,18 +1458,22 @@
           }
         });
 
-        let somaImpactos = 0;
-        let mesesComBase = 0;
+        let totalImpactoAno = 0;
+        let baseRealAno = 0;
+        let baseOperacionalAno = 0;
 
         for (let i = 0; i < 12; i++) {
-          if (faturamentoPorMes[i] > 0) {
-            const impactoBaseMes = refaturadoPorMes[i] + substitutoPorMes[i];
-            somaImpactos += (impactoBaseMes / faturamentoPorMes[i]) * 100;
-            mesesComBase++;
+          totalImpactoAno += refaturadoPorMes[i] + substitutoPorMes[i];
+
+          if (reaisAno.existeRealPorMes[i] && reaisAno.brutoRealPorMes[i] > 0) {
+            baseRealAno += reaisAno.brutoRealPorMes[i];
+          } else {
+            baseOperacionalAno += faturamentoOperacionalPorMes[i];
           }
         }
 
-        return { impactoAnual: mesesComBase > 0 ? somaImpactos / mesesComBase : 0 };
+        const baseAnual = baseRealAno > 0 ? baseRealAno : baseOperacionalAno;
+        return { impactoAnual: baseAnual > 0 ? (totalImpactoAno / baseAnual) * 100 : 0 };
       } catch (e) {
         console.error("Erro impacto anual:", e);
         return { impactoAnual: 0 };
@@ -1389,12 +1495,18 @@
           carregarInstrutivo()
         ]);
 
-        const bruto = Number(fatMes.bruto || 0);
+        const brutoOperacional = Number(fatMes.brutoOperacional || 0);
+        const brutoReal = Number(fatMes.brutoReal || 0);
+        const liquidoReal = Number(fatMes.liquidoReal || 0);
+        const existeReal = !!fatMes.existeReal;
+
+        const bruto = existeReal && brutoReal > 0 ? brutoReal : brutoOperacional;
         const refaturado = Number(refMes.total || 0);
         const substituto = Number(refMes.substituto || 0);
         const impactoBase = refaturado + substituto;
-        const liquido = bruto - refaturado;
-        const impactoMensal = bruto > 0 ? (impactoBase / bruto) * 100 : 0;
+        const liquido = existeReal && liquidoReal > 0 ? liquidoReal : brutoOperacional - refaturado;
+        const baseImpactoMensal = existeReal && brutoReal > 0 ? brutoReal : brutoOperacional;
+        const impactoMensal = baseImpactoMensal > 0 ? (impactoBase / baseImpactoMensal) * 100 : 0;
         const impactoAnual = Number(anual.impactoAnual || 0);
 
         setTexto("kpiBruto", moeda(bruto));
@@ -1440,6 +1552,15 @@
             })
             .subscribe();
         }
+
+        if (TABELAS.faturamento.tabelaReal) {
+          sbFaturamento
+            .channel("tempo-real-valores-reais-menu")
+            .on("postgres_changes", { event: "*", schema: "public", table: TABELAS.faturamento.tabelaReal }, async () => {
+              await carregarTudo();
+            })
+            .subscribe();
+        }
       }
 
       // DADOS e INSTRUTIVO ficam sem realtime no menu pai
@@ -1468,5 +1589,6 @@
       carregarTudo();
     }, 300000);
   </script>
-</body>
-</html>
+
+
+</body></html>
