@@ -329,6 +329,10 @@
       background: linear-gradient(90deg, #a855f7, #c084fc);
     }
 
+    .module-ciot::before {
+      background: linear-gradient(90deg, #0f766e, #14b8a6);
+    }
+
     .module-leitor::before {
       background: linear-gradient(90deg, #ef4444, #f97316);
     }
@@ -510,6 +514,24 @@
     }
   
 
+
+
+    /* ===== v6: menu principal mais discreto + usuário compacto ===== */
+    .logo{display:flex;align-items:center;gap:10px;padding:8px 8px 12px;}
+    .logo::before{content:'M';width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#38bdf8,#2563eb);color:#fff;font-weight:900;font-size:18px;box-shadow:0 8px 18px rgba(37,99,235,.25);flex:0 0 34px;}
+    .logo h1{font-size:15px;margin:0 0 2px;}
+    .logo p{font-size:9.5px;}
+    .menu button{min-height:43px;padding:9px 12px;font-size:12.5px;border-radius:12px;}
+    .user-box{margin-top:auto!important;padding:9px 10px!important;border-radius:15px!important;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02))!important;}
+    .user-compact{display:flex;align-items:center;gap:9px;}
+    .user-avatar{width:30px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#12335f,#0b1d38);border:1px solid rgba(96,165,250,.25);font-size:16px;flex-shrink:0;}
+    .user-meta{min-width:0;line-height:1.15;}
+    .user-meta strong{font-size:12px;color:#fff;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .user-meta span{font-size:10px;color:#9db3d4;display:block;margin-top:2px;}
+    .logout-btn{margin-top:8px!important;padding:8px 10px!important;border-radius:11px!important;background:rgba(255,255,255,.045)!important;font-size:11px!important;text-align:left;display:flex;align-items:center;gap:8px;}
+    .logout-btn::before{content:'↪';font-size:16px;color:#b9d2ff;}
+    .sidebar-footer{padding:10px 11px!important;font-size:9.5px!important;border-radius:13px!important;opacity:.86;}
+
     /* LOGIN */
     .login-overlay {
       position: fixed;
@@ -620,7 +642,153 @@
       cursor: pointer;
     }
 
-  </style>
+
+
+    /* SISTEMA UNIFICADO - SHELL */
+    .menu-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 3px 2px;
+    }
+
+    .app-shell-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .module-frame-wrap {
+      display:none;
+      flex:1;
+      min-height:0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.02) 100%);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 18px 35px rgba(0,0,0,0.22);
+      position:relative;
+    }
+
+    .module-frame-wrap.active { display:flex; flex-direction:column; }
+
+    .module-frame-toolbar {
+      height:46px;
+      min-height:46px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:0 14px;
+      background:linear-gradient(90deg, rgba(10,22,43,.98), rgba(15,31,58,.98));
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .module-frame-title {
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+      min-width:0;
+    }
+
+    .module-frame-title strong {
+      font-size:13px;
+      color:#fff;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .module-frame-title span {
+      margin-top:3px;
+      font-size:9px;
+      color:#91a7c7;
+    }
+
+    .module-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .shell-btn {
+      border:1px solid rgba(255,255,255,0.09);
+      background:rgba(255,255,255,0.055);
+      color:#eaf1fb;
+      border-radius:11px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:11px;
+      transition:.2s ease;
+    }
+    .shell-btn:hover { background:rgba(37,99,235,.18); border-color:rgba(96,165,250,.35); }
+
+    #moduleFrame {
+      flex:1;
+      width:100%;
+      height:100%;
+      border:0;
+      background:#f4f6f9;
+    }
+
+    body.module-open .topbar,
+    body.module-open .kpis,
+    body.module-open .modules,
+    body.module-open .status-row { display:none; }
+
+    body.module-open .main { gap:0; }
+
+    .system-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(34,197,94,.12);
+      border:1px solid rgba(34,197,94,.18);
+      color:#86efac;
+      font-size:10px;
+      font-weight:800;
+      margin-top:6px;
+    }
+
+  
+
+/* ===== v18: botões do menu principal mais modernos ===== */
+.menu button{
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018))!important;
+  border:1px solid rgba(148,163,184,.12)!important;
+  border-radius:14px!important;
+  min-height:44px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 18px rgba(0,0,0,.10)!important;
+}
+.menu button::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(96,165,250,.10),transparent);transform:translateX(-120%);transition:.35s ease;}
+.menu button:hover::after{transform:translateX(120%);}
+.menu button:hover{background:linear-gradient(90deg,rgba(37,99,235,.20),rgba(37,99,235,.06))!important;border-color:rgba(59,130,246,.45)!important;box-shadow:0 10px 26px rgba(37,99,235,.10)!important;}
+.menu button.active{background:linear-gradient(90deg,rgba(37,99,235,.38),rgba(37,99,235,.12))!important;border-color:rgba(59,130,246,.65)!important;box-shadow:inset 3px 0 0 #38bdf8,0 14px 28px rgba(37,99,235,.15)!important;}
+.user-box,.sidebar-footer{background:linear-gradient(180deg,rgba(15,30,58,.78),rgba(8,18,36,.78))!important;border:1px solid rgba(148,163,184,.12)!important;border-radius:16px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 12px 24px rgba(0,0,0,.14)!important;}
+
+
+
+    /* v44: módulo aberto sempre ocupa a área fixa; somente o iframe rola */
+    html:has(body.module-open),
+    body.module-open {
+      overflow: hidden !important;
+      height: 100% !important;
+    }
+    body.module-open .main {
+      overflow: hidden !important;
+      min-height: 0 !important;
+      height: 100vh !important;
+    }
+    body.module-open .module-frame-wrap {
+      min-height: 0 !important;
+      height: 100% !important;
+    }
+    body.module-open #moduleFrame {
+      min-height: 0 !important;
+      height: 100% !important;
+      display: block;
+    }
+</style>
 </head>
 <body>
   <div id="loginOverlay" class="login-overlay" style="display: none;">
@@ -648,37 +816,46 @@
 
   <aside class="sidebar">
     <div class="logo">
-      <h1>Painel Geral</h1>
-      <p>Central dos seus projetos</p>
+      <h1>Marvel Sistemas</h1>
+      <p>Central operacional integrada</p>
     </div>
 
     <div class="menu">
-      <button class="active" onclick="abrirSistema(&#39;dados&#39;)">📊 Dados</button>
-      <button onclick="abrirSistema(&#39;instrutivo&#39;)">📚 Instrutivo</button>
-      <button onclick="abrirSistema(&#39;refaturamento&#39;)">🔁 Refaturamento</button>
-      <button onclick="abrirSistema(&#39;faturamento&#39;)">💰 Faturamento</button>
-      <button onclick="abrirSistema(&#39;painel902&#39;)">🚚 Painel 902</button>
-      <button onclick="abrirSistema(&#39;agrupaPdf&#39;)">🧩 Agrupa/remove PDF</button>
-      <button onclick="abrirSistema(&#39;leitor&#39;)">🔎 Leitor Scanner</button>
+      <button class="active" data-menu="home" onclick="abrirHome()">🏠 Início</button>
+      <div class="menu-divider"></div>
+      <button data-menu="dados" onclick="abrirSistema(&#39;dados&#39;)">📊 Passar Dados</button>
+      <button data-menu="instrutivo" onclick="abrirSistema(&#39;instrutivo&#39;)">📚 Instrutivo</button>
+      <button data-menu="refaturamento" onclick="abrirSistema(&#39;refaturamento&#39;)">🔁 Refaturamento</button>
+      <button data-menu="faturamento" onclick="abrirSistema(&#39;faturamento&#39;)">💰 Faturamento</button>
+      <button data-menu="painel902" onclick="abrirSistema(&#39;painel902&#39;)">🚚 Painel 902</button>
+      <button data-menu="agrupaPdf" onclick="abrirSistema(&#39;agrupaPdf&#39;)">🧩 Agrupa/remove PDF</button>
+      <button data-menu="leitor" onclick="abrirSistema(&#39;leitor&#39;)">🔎 Leitor Scanner</button>
+      <button data-menu="assistenteCiot" onclick="abrirSistema(&#39;assistenteCiot&#39;)">🪪 Assistente CIOT</button>
     </div>
 
     <div class="user-box">
-      <div><strong>Usuário:</strong> <span id="usuarioLogado">Tiago</span></div>
-      <div style="margin-top:4px;"><strong>Perfil:</strong> <span id="perfilLogado">admin</span></div>
+      <div class="user-compact">
+        <div class="user-avatar">👤</div>
+        <div class="user-meta">
+          <strong id="usuarioLogado">Tiago</strong>
+          <span>Perfil: <span id="perfilLogado">admin</span></span>
+        </div>
+      </div>
       <button class="logout-btn" id="btnLogout" type="button">Sair</button>
     </div>
 
     <div class="sidebar-footer">
-      Menu pai sem gráficos, focado em visão geral rápida.<br>
-      Clique nos cards para abrir cada módulo.
+      Sistema unificado em módulos.<br>
+      O menu permanece aberto durante o uso.
     </div>
   </aside>
 
   <main class="main">
     <section class="topbar">
       <div class="topbar-left">
-        <h2>Visão Geral Integrada</h2>
-        <p>Resumo executivo do faturamento e refaturamento</p>
+        <h2>Central Operacional</h2>
+        <p>Menu pai com módulos integrados, indicadores e acessos protegidos</p>
+        <div class="system-pill">● Sistema online</div>
       </div>
 
       <div class="mini-filter">
@@ -743,7 +920,7 @@
           <div class="module-title">📊 Dados</div>
           <div class="module-badge">Operacional</div>
         </div>
-        <div class="module-desc">Base de cálculo e acesso ao módulo de dados.</div>
+        <div class="module-desc">Dados e rateio de faturas em um módulo integrado.</div>
         <div class="module-metrics">
           <div class="metric-box">
             <div class="metric-label">Status</div>
@@ -871,6 +1048,25 @@
         <div class="card-hint">Clique para abrir o módulo</div>
       </div>
 
+      <div class="module-card module-ciot" onclick="abrirSistema(&#39;assistenteCiot&#39;)" role="button" tabindex="0" onkeydown="atalhoAbrir(event, &#39;assistenteCiot&#39;)">
+        <div class="module-header">
+          <div class="module-title">🪪 Assistente CIOT</div>
+          <div class="module-badge">Emissão</div>
+        </div>
+        <div class="module-desc">Leitura de CT-es e preparação dos dados para emissão do CIOT.</div>
+        <div class="module-metrics">
+          <div class="metric-box">
+            <div class="metric-label">Acesso</div>
+            <div class="metric-value">Integrado</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Ferramenta</div>
+            <div class="metric-value">CIOT</div>
+          </div>
+        </div>
+        <div class="card-hint">Clique para abrir dentro do menu</div>
+      </div>
+
     </section>
 
     <section class="status-row">
@@ -881,6 +1077,21 @@
           <div id="statusAtualizacao" style="font-size:11px;font-weight:800;">Atualizado às 10:42:51</div>
         </div>
       </div>
+    </section>
+
+    <section id="moduleFrameWrap" class="module-frame-wrap" aria-label="Área do módulo aberto">
+      <div class="module-frame-toolbar">
+        <div class="module-frame-title">
+          <strong id="moduleTitle">Módulo</strong>
+          <span id="moduleSubtitle">Aberto dentro do sistema unificado</span>
+        </div>
+        <div class="module-actions">
+          <button class="shell-btn" type="button" onclick="abrirModuloNovaAba()">↗ Abrir em nova aba</button>
+          <button class="shell-btn" type="button" onclick="recarregarModulo()">⟳ Recarregar</button>
+          <button class="shell-btn" type="button" onclick="abrirHome()">🏠 Voltar ao início</button>
+        </div>
+      </div>
+      <iframe id="moduleFrame" title="Módulo aberto" allow="clipboard-read; clipboard-write"></iframe>
     </section>
   </main>
 
@@ -898,11 +1109,12 @@
 
       // Consulta: todos os demais usuários individuais
       { usuario: "ademir", senha: "marvel2026", perfil: "consulta", nome: "Ademir", usuarioRef: "ademir.fernandes" },
+       { usuario: "ana.viana", senha: "marvel2026", perfil: "consulta", nome: "Ademir", usuarioRef: "ademir.fernandes" },
       { usuario: "angelita", senha: "ange@2026", perfil: "consulta", nome: "Angelita", usuarioRef: "angelita.santos" },
       { usuario: "elisangela", senha: "elisangela2026", perfil: "consulta", nome: "Elisangela", usuarioRef: "elisangela.vieira" },
       { usuario: "geovana", senha: "geo@2026", perfil: "consulta", nome: "Geovana", usuarioRef: "geovana.silva" },
       { usuario: "ghizzi", senha: "ghizzi@2026", perfil: "consulta", nome: "Jhonatan", usuarioRef: "jhonatan.ghizzi" },
-      { usuario: "balestrin", senha: "bale@800", perfil: "consulta", nome: "Jonathan", usuarioRef: "jonathan.balestrin" },
+      { usuario: "balestrin", senha: "bale@800", perfil: "consulta", nome: "Jonathan", usuarioRef: "jonatan.balestrin" },
       { usuario: "josete", senha: "josete@2026", perfil: "consulta", nome: "Josete", usuarioRef: "josete.gabriel" },
       { usuario: "karllin", senha: "karllin2026", perfil: "consulta", nome: "Karllin", usuarioRef: "karllin" },
       { usuario: "karoline", senha: "karol@165816", perfil: "consulta", nome: "Karoline", usuarioRef: "karoline.romanini" },
@@ -910,8 +1122,8 @@
       { usuario: "angelica", senha: "angelica@2026@", perfil: "consulta", nome: "Angelica", usuarioRef: "angelica.lucca" },
       { usuario: "leia", senha: "leia@comex", perfil: "consulta", nome: "Leia", usuarioRef: "leia.mattos" },
       { usuario: "gabriel", senha: "gabrielbellei", perfil: "consulta", nome: "gabriel", usuarioRef: "gabriel.bellei" },
-      { usuario: "jacson", senha: "jacsongabi", perfil: "consulta", nome: "jacson", usuarioRef: "jacson.gabi" },
       { usuario: "rafaela", senha: "rafaelamartini26", perfil: "consulta", nome: "rafaela", usuarioRef: "rafaela.martini" },
+      { usuario: "jacson", senha: "jacson26", perfil: "consulta", nome: "jacson", usuarioRef: "jacson.gabi" },
 
       // Acessos setoriais sem filtro individual
       { usuario: "comex", senha: "comex2026", perfil: "consulta", nome: "Comex", usuarioRef: "" },
@@ -995,34 +1207,133 @@
     }
 
     const LINKS = {
-      dados: "https://rateiofrete.vercel.app/",
-      instrutivo: "https://instrutivo-21ko.vercel.app/",
-      refaturamento: "https://refaturamento.vercel.app/",
-      faturamento: "https://faturamento-sigma.vercel.app/",
-      painel902: "https://faturamento-pendente.vercel.app/",
-      agrupaPdf: "https://junta-cte-e-nf.vercel.app/",
-      leitor: "https://leitor-scaner.vercel.app/"
+      dados: "modulos/dados/index.html",
+      instrutivo: "modulos/instrutivo/index.html",
+      refaturamento: "modulos/refaturamento/index.html?v=20260731-motivos",
+      faturamento: "modulos/faturamento/index.html",
+      painel902: "modulos/painel902/index.html",
+      agrupaPdf: "modulos/agrupaPdf/index.html?v=56.9.7",
+      leitor: "modulos/leitor/index.html?v=56.9.7",
+      assistenteCiot: "modulos/assistenteCiot/index.html?v=1.0.1"
     };
+
+    const TITULOS_MODULOS = {
+      dados: { titulo: "📊 Passar Dados", subtitulo: "Simulador, rateio e cache de KM via Supabase" },
+      instrutivo: { titulo: "📚 Instrutivo", subtitulo: "Base de clientes, orientações e vídeos" },
+      refaturamento: { titulo: "🔁 Refaturamento", subtitulo: "Controle de refaturados, substitutos e análises" },
+      faturamento: { titulo: "💰 Faturamento", subtitulo: "Faturamento bruto, líquido, metas e indicadores" },
+      painel902: { titulo: "🚚 Painel 902", subtitulo: "Acompanhamento operacional, aduanas, alertas e finalizados" },
+      agrupaPdf: { titulo: "🧩 Agrupa/remove PDF", subtitulo: "Ferramentas de organização e tratamento de PDFs" },
+      leitor: { titulo: "🔎 Leitor Scanner", subtitulo: "Leitura e conferência de documentos" },
+      assistenteCiot: { titulo: "🪪 Assistente CIOT", subtitulo: "Leitura de CT-es e preparação para emissão do CIOT" }
+    };
+
+    let moduloAtualUrl = "";
+
+    function setMenuAtivo(nome) {
+      document.querySelectorAll(".menu button").forEach(btn => btn.classList.remove("active"));
+      const alvo = document.querySelector(`.menu button[data-menu="${nome}"]`);
+      if (alvo) alvo.classList.add("active");
+    }
+
+    function montarUrlModulo(nome) {
+      const sessao = getSessaoMenu();
+      const url = LINKS[nome];
+      if (!url || url.includes("SEU-")) return null;
+
+      const destino = new URL(url, window.location.href);
+      destino.searchParams.set("perfil", sessao.perfil);
+      destino.searchParams.set("usuario", sessao.nome || sessao.usuario || "");
+      destino.searchParams.set("usuarioRef", sessao.usuarioRef || "");
+
+      if (sessao.perfil === "consulta") {
+        if (nome === "faturamento") destino.searchParams.set("bloquearConfig", "true");
+        if (nome === "painel902") {
+          destino.searchParams.set("bloquearConfig", "true");
+          destino.searchParams.set("bloquearFinalizados", "true");
+        }
+      }
+
+      return destino.toString();
+    }
+
+    function resetarRolagemModulo() {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      const main = document.querySelector(".main");
+      if (main) main.scrollTop = 0;
+      const frame = document.getElementById("moduleFrame");
+      if (frame) {
+        try {
+          frame.contentWindow.scrollTo(0, 0);
+          frame.contentDocument.documentElement.scrollTop = 0;
+          frame.contentDocument.body.scrollTop = 0;
+        } catch (_) {}
+      }
+    }
+
+    window.addEventListener("message", function(event) {
+      if (event.data && event.data.type === "marvel:reset-module-scroll") {
+        resetarRolagemModulo();
+      }
+    });
 
     function abrirSistema(nome) {
       const sessao = getSessaoMenu();
-
       if (!sessao || !sessao.perfil) {
         mostrarLogin();
         return;
       }
 
-      const url = LINKS[nome];
-      if (!url || url.includes("SEU-")) {
+      const destino = montarUrlModulo(nome);
+      if (!destino) {
         alert("Configure primeiro o link do módulo: " + nome);
         return;
       }
 
-      const destino = new URL(url);
-      destino.searchParams.set("perfil", sessao.perfil);
-      destino.searchParams.set("usuario", sessao.nome || sessao.usuario || "");
-      destino.searchParams.set("usuarioRef", sessao.usuarioRef || "");
-      window.location.href = destino.toString();
+      const frame = document.getElementById("moduleFrame");
+      const wrap = document.getElementById("moduleFrameWrap");
+      const info = TITULOS_MODULOS[nome] || { titulo: nome, subtitulo: "Módulo integrado" };
+
+      moduloAtualUrl = destino;
+      localStorage.setItem("menu_modulo_ativo", nome);
+      localStorage.setItem("menu_modulo_url", destino);
+
+      document.getElementById("moduleTitle").textContent = info.titulo;
+      document.getElementById("moduleSubtitle").textContent = info.subtitulo;
+      frame.onload = () => {
+        resetarRolagemModulo();
+        setTimeout(resetarRolagemModulo, 60);
+      };
+      frame.src = destino;
+      wrap.classList.add("active");
+      document.body.classList.add("module-open");
+      setMenuAtivo(nome);
+    }
+
+    function abrirHome() {
+      const frame = document.getElementById("moduleFrame");
+      const wrap = document.getElementById("moduleFrameWrap");
+      if (frame) frame.removeAttribute("src");
+      if (wrap) wrap.classList.remove("active");
+      document.body.classList.remove("module-open");
+      localStorage.setItem("menu_modulo_ativo", "home");
+      localStorage.removeItem("menu_modulo_url");
+      moduloAtualUrl = "";
+      setMenuAtivo("home");
+    }
+
+    function abrirModuloNovaAba() {
+      if (moduloAtualUrl) window.open(moduloAtualUrl, "_blank", "noopener,noreferrer");
+    }
+
+    function recarregarModulo() {
+      const frame = document.getElementById("moduleFrame");
+      if (frame && moduloAtualUrl) {
+        frame.onload = () => resetarRolagemModulo();
+        frame.src = moduloAtualUrl;
+      }
     }
 
     function atalhoAbrir(event, nome) {
@@ -1034,8 +1345,8 @@
 
     const SUPABASES = {
       dados: {
-        url: "https://SUA-SUPABASE-DADOS.supabase.co",
-        key: "SUA-ANON-KEY-DADOS"
+        url: "https://ndpfmjetlvcujhgphqoi.supabase.co",
+        key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kcGZtamV0bHZjdWpoZ3BocW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0NDk2MTksImV4cCI6MjA5ODAyNTYxOX0.M1ypP2OOSGOojCGWfq-X1UNJzfYhD8a-J47QtR6Qw00"
       },
       instrutivo: {
         url: "https://zyuvmbosepzpigyidyco.supabase.co",
@@ -1058,7 +1369,8 @@
       return supabase.createClient(cfg.url, cfg.key);
     }
 
-    const sbDados = criarCliente(SUPABASES.dados);
+    // DADOS usa REST direto para evitar abrir canal Realtime/WebSocket desnecessário.
+    const sbDados = null;
     const sbInstrutivo = criarCliente(SUPABASES.instrutivo);
     const sbRefaturamento = criarCliente(SUPABASES.refaturamento);
     const sbFaturamento = criarCliente(SUPABASES.faturamento);
@@ -1066,7 +1378,7 @@
 
     const TABELAS = {
       dados: {
-        tabela: "dados",
+        tabela: "cache_rotas_km",
         campoId: "id"
       },
       instrutivo: {
@@ -1244,16 +1556,29 @@
     }
 
     async function carregarDados() {
-      if (!sbDados) {
+      const cfg = SUPABASES.dados;
+      const tabela = TABELAS.dados.tabela;
+      if (!cfg?.url || !cfg?.key || !tabela) {
         setTexto("dadosStatus", "Atalho");
         setTexto("dadosRegistros", "—");
         return;
       }
 
       try {
-        const { count, table } = await queryCountWithFallback(sbDados, TABELAS.dados.tabelas);
-        setTexto("dadosStatus", table ? "Conectado" : "Atalho");
-        setTexto("dadosRegistros", table ? inteiro(count || 0) : "—");
+        const url = `${cfg.url}/rest/v1/${encodeURIComponent(tabela)}?select=${encodeURIComponent(TABELAS.dados.campoId || 'id')}`;
+        const r = await fetch(url, {
+          method: "HEAD",
+          headers: {
+            apikey: cfg.key,
+            Authorization: `Bearer ${cfg.key}`,
+            Prefer: "count=exact"
+          }
+        });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const range = r.headers.get("content-range") || "";
+        const total = range.includes("/") ? Number(range.split("/").pop()) : NaN;
+        setTexto("dadosStatus", "Conectado");
+        setTexto("dadosRegistros", Number.isFinite(total) ? inteiro(total) : "—");
       } catch (e) {
         console.error("Erro dados:", e);
         setTexto("dadosStatus", "Atalho");
@@ -1571,8 +1896,8 @@
     popularAnos();
     definirMesAtual();
 
-    document.getElementById("filtroMes").addEventListener("change", carregarTudo);
-    document.getElementById("filtroAno").addEventListener("change", carregarTudo);
+    document.getElementById("filtroMes")?.addEventListener("change", carregarTudo);
+    document.getElementById("filtroAno")?.addEventListener("change", carregarTudo);
 
 
     document.getElementById("btnLogin")?.addEventListener("click", validarLoginMenu);
@@ -1583,6 +1908,13 @@
     });
 
     validarSessaoInicialMenu();
+
+    const ultimoModulo = localStorage.getItem("menu_modulo_ativo") || "home";
+    if (ultimoModulo && ultimoModulo !== "home" && LINKS[ultimoModulo]) {
+      setTimeout(() => abrirSistema(ultimoModulo), 80);
+    } else {
+      abrirHome();
+    }
 
     carregarTudo();
     ativarTempoReal();
